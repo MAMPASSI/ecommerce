@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfilController!{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+        <h1>profil de {{app.user.lastname}} {{app.user.firstname}}</h1>
+    {% endif %}
+{% endblock %}

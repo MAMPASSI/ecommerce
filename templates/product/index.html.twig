@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Produits{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+    <section class="offcanvas offcanvas-end" id="userTools">
+        <div class="offcanvas-header">
+            <h2 class="offcanvas-title" style="color: #088178;">Votre Profile</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <p>lastname : {{app.user.lastname}}  </p>
+            <p>firstname : {{app.user.firstname}}</p>
+            <p>E-mail : {{app.user.email}}</p>
+            <p>address : {{app.user.address}} </p>
+            <p>Zipcode : {{app.user.zipcode}} </p>
+            <p>city : {{app.user.city}} </p>
+            <a href="#" class="btn btn-success mt-3 w-100">Edite</a><br>
+            <a href="{{ path('app_logout') }}" class="btn btn-primary mt-3 w-100">logout</a>
+
+        </div>
+    </section>
+
+    {% endif %}
+    
+
+    <section id="page-header" style="background-image: url('img/banner/b1.jpg');">
+        <h2 >#stayhome</h2>
+        <p>Save more wwith coupons & up to 70% off ! </p>
+    </section>
+
+    <section id="product1" class="section-p1">
+      
+        <div class="pro-container">
+            {% for product in products  %}
+                <div class="pro" onclick="window.location.href='#'">
+                    <img src="img/products/f1.jpg" alt="">
+                    <div class="des">
+                        <span>{{product.name}}</span>
+                        <h5>{{product.description}}</h5>
+                        <div class="star">
+                            <span class="material-symbols-outlined">star_half</span>
+                            <span class="material-symbols-outlined">star_half</span>
+                            <span class="material-symbols-outlined">star_half</span>
+                            <span class="material-symbols-outlined">star_half</span>
+                            <span class="material-symbols-outlined">star_half</span>
+                        </div>
+                        <h4>${{product.price}}</h4>
+                    </div>
+                    {% if  app.user %}
+                        <a href="{{path('cart_add',{id:product.id})}}"><span class="material-symbols-outlined cart">shopping_cart</span></a>
+                    
+                    {% else %}
+                        <a href="#"><span class=" cart">{{product.stock}}</span></a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier {% endblock %}
+
+{% block body %}
+    {% if app.user %}
+        <section class="offcanvas offcanvas-end" id="userTools">
+            <div class="offcanvas-header">
+                <h2 class="offcanvas-title" style="color: #088178;">Votre Profile</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+                <p>lastname : {{app.user.lastname}}  </p>
+                <p>firstname : {{app.user.firstname}}</p>
+                <p>E-mail : {{app.user.email}}</p>
+                <p>address : {{app.user.address}} </p>
+                <p>Zipcode : {{app.user.zipcode}} </p>
+                <p>city : {{app.user.city}} </p>
+                <a href="{{path('app_profil')}}" class="btn btn-success mt-3 w-100">Edite</a>
+                <a href="{{ path('app_logout') }}" class="btn btn-primary mt-3 w-100">logout</a>
+
+            </div>
+        </section>
+
+    {% endif %}
+
+    <section id="page-header" class="about-header" style="background-image: url('img/banner/b1.jpg');">
+        <h2 >#let's_talk</h2>
+        <p>LEAVE A MESSAGE. We love to from you ! </p>
+    </section>
+
+    <section id="cart" class="section-p1" >
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Remove</td>
+                    <td>Image</td>
+                    <td>Product</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Subtotal</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for element in datapanier %}
+                    <tr>
+                        <td>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                </svg>
+                            </a>
+                        </td>
+                        <td><img src="img/products/f1.jpg" alt="f1"></td>
+                        <td>{{ element.produit.name }}</td>
+                        <td>${{ element.produit.price }}</td>
+                        <td><input type="number" value="1"></td>
+                        <td>{{element.quantite * element.produit.price }}</td>
+
+                    </tr>
+
+                {% endfor %}
+                
+                
+            </tbody>
+        </table>
+
+    </section>
+
+
+
+{% endblock %}
